@@ -1,8 +1,8 @@
 import express from "express";
+import cors from 'cors';
+
 import { Routes } from "./routes/rutasHoteles.js";
 import { establecerConexionDB } from "./database/conexion.js";
-
-
 export class Api {
   constructor() {
     this.app = express();
@@ -16,6 +16,7 @@ WakeServer() {
     });
 }
 processPetition(){
+    this.app.use(cors())
     this.app.use(express.json())  
     this.app.use("/",Routes)
     

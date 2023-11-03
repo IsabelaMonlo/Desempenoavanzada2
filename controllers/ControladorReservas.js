@@ -62,17 +62,15 @@ export class controllerReservas {
     try {
       let data = new ServicioReserva();
       let datos = request.body;
+      let fechaInicio =  moment(datos.fechaInicioReserva);
+      let fechaFinal =  moment(datos.fechaFinalReserva);
+     let diferencia = moment(fechaFinal).diff(moment(fechaInicio), 'days');
       await data.registrar(datos);
-      let fechaInicio = moment(datos.fechaInicio);
-      let fechaFinal = moment(datos.fechaFinal);
-      let diferencia = moment(datos.fechaFinal).diff(moment(datos.fechaInicio), 'days');
-
-  
-      response.status(200).json({
+       response.status(200).json({
         estado: true,
         mensaje: "peticion exitosa reserva creada",
         datos: datos,
-        diasReserva: diferencia + " días de reserva"
+       diasReserva: diferencia + " días de reserva"
       });
     } catch (error) {
       console.error(error);
